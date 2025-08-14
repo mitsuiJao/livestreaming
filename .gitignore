@@ -1,1 +1,2 @@
 www/live[0-9]*
+.venv/
