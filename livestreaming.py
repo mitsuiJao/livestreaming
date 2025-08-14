@@ -5,16 +5,17 @@ import sys
 import time
 import os
 
-PATH = r"/home/nishima/raid/vieo"
+PATH = r"/home/nishima/raid/video"
 
-FPS = 30
+FPS = 15
 WIDTH, HEIGHT = 640, 480
 FOURCC = cv2.VideoWriter_fourcc(*'mp4v')
 def create_writer():
     now = datetime.datetime.now()
-    filename = f"{now.strftime('%Y-%m-%d')}.mp4"
+    filename = f"{now.strftime('%Y-%m-%d-%H-%M')}.mp4"
     filename = os.path.join(PATH, filename)
-    return cv2.VideoWriter(filename, FOURCC, FPS, (WIDTH, HEIGHT)), now.date()
+    print(f"newfile: {filename}")
+    return cv2.VideoWriter(filename, FOURCC, FPS, (WIDTH, HEIGHT)), now.minute
 
 
 writer, current_date = create_writer()
@@ -23,8 +24,9 @@ try:
     container = av.open('rtsp://192.168.0.210:8554/unicast')
 
     for frame in container.decode(video=0):
-        now =   datetime.datetime.now()
-        if now.date() != current_date:
+        now = datetime.datetime.now()
+        print(now)
+        if now.minute != current_date:
             writer.release()
             writer, current_date = create_writer()
         
