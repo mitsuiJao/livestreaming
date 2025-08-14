@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Live</title>
+
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            display: inline-block;
+            vertical-align: middle;
+            position: static;
+            margin-right: 10px;
+        }
+        h1 {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0;
+        }
+
+        video {
+            display: block;
+            margin-top: 50px;
+            margin-left: 10px;
+        }
+    </style>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+
+<body>
+    <img src="img/5968819.png" width="30px">
+    <h1>LiveStreaming</h1>
+    <video id="video" width="640" height="360" muted autoplay controls></video>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const video = document.getElementById('video');
+            const hlsUrl = 'live.m3u8';
+
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(hlsUrl);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                    video.play();
+                });
+                video.addEventListener('loadedmetadata', function () {
+                    video.currentTime = 0;
+                })
+            } else {
+                console.error('HLS is not supported in this browser');
+            }
+        });
+
+    </script>
+</body>
+
+</html>
