@@ -1,2 +1,3 @@
 www/live[0-9]*
 .venv/
+live.m3u8

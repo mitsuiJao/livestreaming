@@ -50,9 +50,9 @@
                 hls.on(Hls.Events.MANIFEST_PARSED, function () {
                     video.play();
                 });
-                video.addEventListener('loadedmetadata', function () {
-                    video.currentTime = 0;
-                })
+                // video.addEventListener('loadedmetadata', function () {
+                //     video.currentTime = 0;
+                // })
             } else {
                 console.error('HLS is not supported in this browser');
             }
